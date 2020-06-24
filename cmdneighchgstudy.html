@@ -1,0 +1,162 @@
+<html>
+<head>
+<title>CURE Neighborhood Base-line Study Map</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+	html, body, #map-canvas {
+        margin: 10;
+        padding: 0;
+        height: 97%;
+	width: 97%;
+	</style>
+	<style>
+	/* Popup container - can be anything you want */
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+} 
+
+/* The actual popup */
+.popup .popuptext {
+  visibility: hidden;
+  width: 660px;
+  background-color: #355;
+  color: #fff;
+  text-align: justify;
+  border-radius: 6px;
+  padding: 8px 8px 8px 8px;
+  position: absolute;
+  z-index: 1;
+  bottom: -1125%;
+  left: -42%;
+  margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;} 
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+}
+    </style>
+</head>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyArYdT0xI5RD1p8wcwp6uZsF-RPXUCDF84&sensor=false"></script>
+
+<script type="text/javascript">
+
+var layers=[];
+
+layers[0] = new google.maps.KmlLayer('https://cure-cncs.camden.rutgers.edu/camden_city_outline.kml',{preserveViewport: true});
+
+layers[1] = new google.maps.KmlLayer('https://cure-cncs.camden.rutgers.edu/neighborhood-assets-6009.kml',{preserveViewport: true});
+
+layers[2] = new google.maps.KmlLayer('https://cure-cncs.camden.rutgers.edu/cure-housing-baseline-study-surv-results.kml',{preserveViewport: true});
+
+layers[3] = new google.maps.KmlLayer('https://cure-cncs.camden.rutgers.edu/street-survey-merge.kml',{preserveViewport: true});
+
+var map;
+
+function initialize() {
+    var cramerhill = new google.maps.LatLng(39.953322,-75.099075);
+    var mapOptions = {
+      zoom: 16,
+      center: cramerhill,
+      mapTypeIds: google.maps.MapTypeId.ROADMAP
+    }
+
+    map = new google.maps.Map(document.getElementById("map_canvas"),mapOptions);
+}
+
+function toggleLayers(i)
+{
+
+  if(layers[i].getMap()==null) {
+     layers[i].setMap(map);
+  }
+  else {
+     layers[i].setMap(null);
+  }
+  document.getElementById('status').innerHTML += "toggleLayers("+i+") [setMap("+layers[i].getMap()+"] returns status: "+layers[i].getStatus()+"<br>";
+}
+
+
+</script>
+</head>
+<body onload="initialize()" style="text-align:center">
+
+<div id="container" style="width:auto">
+
+<!--<div id="header" style="background-color:#F0F0F0;"-->
+<h1 style="background-color:#F0F0F0;" align="center"> Camden Neighborhood Change Study - Center for Urban Research and Education (CURE) at Rutgers University - Camden</h1></div>
+
+<!--<h1>Camden Neighborhood Change Study - Center for Urban Research and Education (CURE) at Rutgers Camden</h>-->
+
+<hr>
+<!--<p align="justify">This interactive map serves as a pilot for our study and is based on a survey of housing and neighborhood conditions in a target study area in the Cramer Hill neighborhood of Camden, NJ.  When clicking on a house, another window opens up with detailed data on property and streetscape conditions, as well as a link to a current digital photograph.  In the next phase of this study, we will collect similar data for the entire Cramer Hill neighborhood, as well as the Cooper Lanning and North Camden Waterfront neighborhoods in Camden City, all of which have received or are about to receive a significant influx of resources.  Accordingly, we will update the interactive map to include the expanded study areas and survey/photography data collected.  This will complete the baseline housing/neighborhood condition survey for the target neighborhoods.  We plan to collect new survey/photography data for the target areas annually to monitor neighborhood change over time.  For more information on this study, please visit our website at <a href="http://cure.camden.rutgers.edu/camden-neighborhood-change-study/
+">CURE Camden Neighborhood Change Study
+</a> </p>-->
+
+<!--<h2>Popup</h2>-->
+
+<div class="popup" onclick="myFunction()"><b>Survey Background and Map Navigation</b>
+  <span class="popuptext" id="myPopup">This interactive map serves as a pilot for our study and is based on a survey of housing and neighborhood conditions in a target study area in the Cramer Hill neighborhood of Camden, NJ.  When clicking on a house, another window opens up with detailed data on property and streetscape conditions, as well as a link to a current digital photograph.  In the next phase of this study, we will collect similar data for the entire Cramer Hill neighborhood, as well as the Cooper Lanning and North Camden Waterfront neighborhoods in Camden City, all of which have received or are about to receive a significant influx of resources.  Accordingly, we will update the interactive map to include the expanded study areas and survey/photography data collected.  This will complete the baseline housing/neighborhood condition survey for the target neighborhoods.  We plan to collect new survey/photography data for the target areas annually to monitor neighborhood change over time.  For more information on this study, please visit our website at <a href="http://cure.camden.rutgers.edu/camden-neighborhood-change-study/
+">CURE Camden Neighborhood Change Study</a></span>
+</div>
+
+<script>
+// When the user clicks on div, open the popup
+function myFunction() {
+  var popup = document.getElementById("myPopup");
+  popup.classList.toggle("show");
+}
+</script>
+
+
+<hr>
+<p1><font color="red"><b>Red</b></font> markers indicate neighborhood assets; <font color="green"><b>Green</b></font> markers - property survey findings; <font color="blue"><b>Blue</b></font> line segments - Street survey results</p1>
+
+    <!--<div id="map-canvas"></div>-->
+<!--<div id="legend"><p1>Legend</p1></div>-->
+<br>
+<input type="button" value="Camden City boundary" onclick="toggleLayers(0);"/>
+<input type="button" value="Street Survey" onclick="toggleLayers(3);"/>
+<input type="button" value="Property Survey" onclick="toggleLayers(2);"/>
+<input type="button" value="Neighborhood Assets" onclick="toggleLayers(1);"/>
+
+<hr>
+<div id="map_canvas" style="height:600px; width:1190px;"></div>
+
+<p><small> (c) The Center for Urban Research and Education (CURE), at Rutgers University - Camden <a href="http://cure.camden.rutgers.edu">Back to CURE's homepage</a></p>
+<br>
+<!--<div id="status"></div>-->
+</body>
+</html>
