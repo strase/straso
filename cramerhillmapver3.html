@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CURE Neighborhood Baseline Study Map</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style type="text/css">
+
+        body {background-color:lightgrey}
+      html, body, #map-canvas {
+        margin: 10;
+        padding: 10;
+        height: 97%;
+	width: 97%;
+     }
+
+#map-canvas {width:500px; height:300px; border: 3px solid #00001F;}
+
+#legend {
+        background: #FFF;
+        padding: 15px;
+        margin: 20px;
+        font-size: 12px;
+        font-family: Arial, sans-serif;
+      }
+
+      .color {
+        border: 1px solid;
+        height: 12px;
+        width: 12px;
+        margin-right: 3px;
+        float: left;
+      }
+
+      .red {
+        background: #C00;
+      }
+
+      .yellow {
+        background: #FF3;
+      }
+
+      .green {
+        background: #6F0;
+      }
+
+      .blue {
+        background: #06C;
+      }
+
+
+
+    </style>
+
+
+
+
+<link href="/maps/documentation/javascript/examples/default.css" rel="stylesheet">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyArYdT0xI5RD1p8wcwp6uZsF-RPXUCDF84&sensor=false"></script>
+    <script>
+var map;
+
+
+
+
+function initialize() {
+  var camden = new google.maps.LatLng(39.952777, -75.099231);
+  var mapOptions = {
+    zoom: 15,
+    center: camden,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  }
+
+
+var map = new google.maps.Map(document.getElementById('map-canvas'),
+      mapOptions);
+
+
+var surveyLayer = new google.maps.KmlLayer({
+    url: 'https://www.dropbox.com/s/xkou4r23q42t12y/cramerhilldata9.kml?dl=1'
+  });
+  surveyLayer.setMap(map);
+
+
+  
+
+var legend = document.createElement('div');
+        legend.id = 'legend';
+        var content = [];
+        content.push('<h3>Legend*</h3>');
+        content.push('<p><div class="color blue"></div>Field survey data</p>');
+        content.push('<p><div class="color red"></div>No survey data</p>');
+        content.push('<p3><b>*C.H. Survey, Winter, 2015<b/></p3>');
+        legend.innerHTML = content.join('');
+        legend.index = 1;
+        map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
+      }
+
+
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+  </head>
+  <body>
+
+
+<div id="container" style="width:100%">
+
+<div id="header" style="background-color:#F0F0F0;">
+<h1 style="margin-bottom:0;">  Cramer Hill Neighborhood Change Study - Center for Urban Research and Education (CURE) at Rutgers University - Camden</h3></div>
+
+
+
+<hr>
+<p1> <b> <a href="#" onClick="MyWindow=window.open('https://drive.google.com/uc?export=view&id=1Apa5tzbsKT3902QinfruRV08mc27q_p9','MyWindow','width=600,height=300'); return false;">Survey Background and Map Navigation</a> 
+ 
+
+
+ 
+ </p1> <br>
+
+<hr>
+
+<!--<p1><font color="green">Green</font> polygons - New housing conditions survey data available; <font color="yellow">Yellow</font> polygons - No new data</p1>-->
+
+    <div id="map-canvas" style="height:500px; width:1185px;"></div> 
+<!--<div id="legend"><p1>Legend</p1></div>-->
+
+
+
+<p><small> (c) The Center for Urban Research and Education, Rutgers, The State University of New Jersey - Camden <a href="https://cure.camden.rutgers.edu">Back to CURE's homepage</a></p>
+<br>
+  </body>
+</html>
+
+
+
