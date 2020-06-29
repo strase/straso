@@ -15,7 +15,7 @@
 	width: 97%;
      }
 
-#map-canvas {width:500px; height:300px; border: 3px solid #00001F;}
+#map-canvas {width:200px; height:100px; <!--border: 1px solid #00001F;-->}
 
 #legend {
         background: #FFF;
@@ -49,10 +49,33 @@
         background: #06C;
       }
 
+h1 {text-align: center;}
+h2 {text-align: center;}
+p1 {text-align: center;}
 
-
+<!--#map {
+       height: 360px;
+       width: 300px;
+       overflow: hidden;
+       float: left;
+       border: thin solid #333;
+       }-->
+#capture {
+       height: 280px;
+       width: 420px;
+       overflow: auto;
+       float: left;
+       background-color: #F0F0F0;
+       border: none
+       <!--border-left: none;-->
+       }
+	   
+#vl {
+       float: left;
+       border-left: none;
+       }
+	   
     </style>
-
 
 
 
@@ -60,7 +83,6 @@
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyArYdT0xI5RD1p8wcwp6uZsF-RPXUCDF84&sensor=false"></script>
     <script>
 var map;
-
 
 
 
@@ -79,11 +101,16 @@ var map = new google.maps.Map(document.getElementById('map-canvas'),
 
 var surveyLayer = new google.maps.KmlLayer({
     url: 'https://raw.githubusercontent.com/strase/straso/master/cramerhilldata11.kml?dl=1',
-	preserveViewport: true
+	preserveViewport: true,
+	suppressInfoWindows: true
   });
   surveyLayer.setMap(map);
 
-
+surveyLayer.addListener('click', function(event) {
+  var content = event.featureData.infoWindowHtml;
+  var testimonial = document.getElementById('capture');
+  testimonial.innerHTML = content;
+});
   
 
 var legend = document.createElement('div');
@@ -107,33 +134,31 @@ google.maps.event.addDomListener(window, 'load', initialize);
   <body>
 
 
-<div id="container" style="width:100%">
+<div id="container" style="height:100%; width:100%">
 
 <div id="header" style="background-color:#F0F0F0;">
-<h1 style="margin-bottom:0;">  Cramer Hill Neighborhood Change Study - Center for Urban Research and Education (CURE) at Rutgers University - Camden</h3></div>
+<h1 style="margin-top:0; margin-bottom:0;">Cramer Hill Neighborhood Change Study</h1>
+<h2 style="margin-top:0; margin-bottom:0;">Center for Urban Research and Education (CURE) at Rutgers University - Camden</h2>
+
+</div>
 
 
 
 <hr>
-<p1> <b> <a href="#" onClick="MyWindow=window.open('https://raw.githack.com/strase/straso/master/Cramer%20Hill%20Neighborhood%20Change%20Study%20Survey%20info.pdf','MyWindow','width=600,height=300'); return false;">Survey Background and Map Navigation</a> 
- 
-
-
- 
- </p1> <br>
-
+<p1 "margin-top:0; margin-bottom:0;"><b><a href="#" onClick="MyWindow=window.open('https://raw.githack.com/strase/straso/master/Cramer%20Hill%20Neighborhood%20Change%20Study%20Survey%20info.pdf','MyWindow','width=600,height=300'); return false;">Survey Background and Map Navigation</a></p1>
 <hr>
 
 <!--<p1><font color="green">Green</font> polygons - New housing conditions survey data available; <font color="yellow">Yellow</font> polygons - No new data</p1>-->
 
-    <div id="map-canvas" style="height:500px; width:1185px;"></div> 
+    <div id="map-canvas" style="height:100%; width:70%; float:left"></div> 
 <!--<div id="legend"><p1>Legend</p1></div>-->
+<!--<div id="map"></div>-->
+<div id="vl" style="margin-top:0; margin-bottom:0; background-color:lightgrey; height:100%; width:2%"></div>
+<div id="capture" style="height:100%; width:28%"></div>
 
 
-
-<p><small> (c) The Center for Urban Research and Education, Rutgers, The State University of New Jersey - Camden <a href="https://cure.camden.rutgers.edu">Back to CURE's homepage</a></p>
+<div id="copyright" style="float:left"><p><small> (c) The Center for Urban Research and Education, Rutgers, The State University of New Jersey - Camden <a href="https://cure.camden.rutgers.edu">Back to CURE's homepage</a></p></div>
 <br>
   </body>
 </html>
-
 
