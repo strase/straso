@@ -9,8 +9,6 @@
 </SimpleField>
 		<SimpleField type="xsd:string" name="TRACTCE"><displayName>TRACTCE</displayName>
 </SimpleField>
-		<SimpleField type="xsd:string" name="AFFGEOID"><displayName>AFFGEOID</displayName>
-</SimpleField>
 		<SimpleField type="xsd:string" name="GEOID"><displayName>GEOID</displayName>
 </SimpleField>
 		<SimpleField type="xsd:string" name="NAME"><displayName>NAME</displayName>
@@ -48,7 +46,6 @@
 <th>TRACTCE</th>
 <td>600900</td>
 </tr><tr bgcolor="">
-<th>AFFGEOID</th>
 <td>1400000US34007600900</td>
 </tr><tr bgcolor="#E3E3F3">
 <th>GEOID</th>
@@ -72,7 +69,6 @@
 				<SimpleData name="STATEFP">34</SimpleData>
 				<SimpleData name="COUNTYFP">007</SimpleData>
 				<SimpleData name="TRACTCE">600900</SimpleData>
-				<SimpleData name="AFFGEOID">1400000US34007600900</SimpleData>
 				<SimpleData name="GEOID">34007600900</SimpleData>
 				<SimpleData name="NAME">6009</SimpleData>
 				<SimpleData name="LSAD">CT</SimpleData>
