@@ -26,16 +26,16 @@
 .popup .popuptext {
   visibility: hidden;
   width: 660px;
-  background-color: #355;
+  background-color: #6B8E23;
   color: #fff;
   text-align: justify;
   border-radius: 6px;
   padding: 8px 8px 8px 8px;
   position: absolute;
   z-index: 1;
-  bottom: -1125%;
-  left: -42%;
-  margin-left: -80px;
+  bottom: -1182%;
+  left: -82%;
+  <!--margin-left: -101px;-->
 }
 
 /* Popup arrow */
@@ -67,22 +67,63 @@
   from {opacity: 0;}
   to {opacity:1 ;}
 }
+
+h1 {text-align: center; font-size:200%; font-family:verdana}
+h2 {text-align: center; font-size:100%; font-family:arial}
+p1 {text-align: center;}
+
+#checkboxes { 
+	position: absolute; 
+	top: 50px; 
+	right: 10px;
+	font-family: 'arial', 'sans-serif'; 
+	font-size: 14px;
+	background-color: white;
+	border: 1px solid black;
+	padding: 10px 10px 0px 10px;
+	}
+	
+#capture {
+       height: 280px;
+       width: 420px;
+       overflow: auto;
+       float: left;
+       background-color: #F0F0F0;
+       border: none;
+       <!--border-left: none;-->
+	   margin-left: 5px;
+	   text-align: left;
+       }
+
+#vl {
+       float: left;
+       border-left: none;
+       }
+
+
     </style>
 </head>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyArYdT0xI5RD1p8wcwp6uZsF-RPXUCDF84&sensor=false"></script>
 
 <script type="text/javascript">
 
+
 var layers=[];
 
-layers[0] = new google.maps.KmlLayer('https://cure-cncs.camden.rutgers.edu/camden_city_outline.kml',{preserveViewport: true});
+layers[0] = new google.maps.KmlLayer('https://cure-cncs.camden.rutgers.edu/camden_city_outline.kml',{preserveViewport: false, suppressInfoWindows: true});
 
-layers[1] = new google.maps.KmlLayer('https://cure-cncs.camden.rutgers.edu/neighborhood-assets-6009.kml',{preserveViewport: true});
+layers[1] = new google.maps.KmlLayer('https://raw.githubusercontent.com/strase/straso/master/cramerhill3.kml?dl=1',{preserveViewport: false, suppressInfoWindows: true});
 
-layers[2] = new google.maps.KmlLayer('https://cure-cncs.camden.rutgers.edu/cure-housing-baseline-study-surv-results.kml',{preserveViewport: true});
+layers[2] = new google.maps.KmlLayer('https://cure-cncs.camden.rutgers.edu/neighborhood-assets-6009.kml',{preserveViewport: false, suppressInfoWindows: true});
 
-layers[3] = new google.maps.KmlLayer('https://cure-cncs.camden.rutgers.edu/street-survey-merge.kml',{preserveViewport: true});
+layers[3] = new google.maps.KmlLayer('https://raw.githubusercontent.com/strase/straso/master/cure-housing-baseline-study-surv-results4.kml?dl=1',{preserveViewport: false, suppressInfoWindows: true});
 
+layers[4] = new google.maps.KmlLayer('https://cure-cncs.camden.rutgers.edu/street-survey-merge.kml',{preserveViewport: false, suppressInfoWindows: true});
+
+for (var i = 0; i < layers.length; i++) {
+        layers[i].setMap(null);
+      }
+	  
 var map;
 
 function initialize() {
@@ -94,20 +135,31 @@ function initialize() {
     }
 
     map = new google.maps.Map(document.getElementById("map_canvas"),mapOptions);
+
 }
 
-function toggleLayers(i)
-{
+function toggleLayers(i){
 
-  if(layers[i].getMap()==null) {
+  if(layers[i].getMap()===null) {
      layers[i].setMap(map);
+	 layers[i].addListener('click', function(event) {
+     var content = event.featureData.infoWindowHtml;
+     var testimonial = document.getElementById('capture');
+     testimonial.innerHTML = content;
+})   ;
   }
   else {
      layers[i].setMap(null);
+	 layers[i].addListener('click', function(event) {
+     var content = event.featureData.infoWindowHtml;
+     var testimonial = document.getElementById('capture');
+     testimonial.innerHTML = content;
+})   ;
   }
-  document.getElementById('status').innerHTML += "toggleLayers("+i+") [setMap("+layers[i].getMap()+"] returns status: "+layers[i].getStatus()+"<br>";
 }
+  document.getElementById('status').innerHTML += "toggleLayers("+i+") [setMap("+layers[i].getMap()+"] returns status: "+layers[i].getStatus()+"<br>";
 
+google.maps.event.addDomListener(window, 'load', initialize);
 
 </script>
 </head>
@@ -116,7 +168,9 @@ function toggleLayers(i)
 <div id="container" style="width:auto">
 
 <!--<div id="header" style="background-color:#F0F0F0;"-->
-<h1 style="background-color:#F0F0F0;" align="center"> Camden Neighborhood Change Study - Center for Urban Research and Education (CURE) at Rutgers University - Camden</h1></div>
+<h1 style="margin-top:0; margin-bottom:0; background-color:#F0F0F0; align="center">Camden Neighborhood Change Study</h1>
+<h2 style="margin-top:0; margin-bottom:0; background-color:#F0F0F0; align="center">Center for Urban Research and Education (CURE) at Rutgers University - Camden</h2>
+</div>
 
 <!--<h1>Camden Neighborhood Change Study - Center for Urban Research and Education (CURE) at Rutgers Camden</h>-->
 
@@ -126,10 +180,12 @@ function toggleLayers(i)
 </a> </p>-->
 
 <!--<h2>Popup</h2>-->
-
-<div class="popup" onclick="myFunction()"><b>Survey Background and Map Navigation</b>
+<div class="popup" onclick="myFunction()">
+<input type="button" onclick="close();" value="Survey Background and Map Navigation"/>
   <span class="popuptext" id="myPopup">This interactive map serves as a pilot for our study and is based on a survey of housing and neighborhood conditions in a target study area in the Cramer Hill neighborhood of Camden, NJ.  When clicking on a house, another window opens up with detailed data on property and streetscape conditions, as well as a link to a current digital photograph.  In the next phase of this study, we will collect similar data for the entire Cramer Hill neighborhood, as well as the Cooper Lanning and North Camden Waterfront neighborhoods in Camden City, all of which have received or are about to receive a significant influx of resources.  Accordingly, we will update the interactive map to include the expanded study areas and survey/photography data collected.  This will complete the baseline housing/neighborhood condition survey for the target neighborhoods.  We plan to collect new survey/photography data for the target areas annually to monitor neighborhood change over time.  For more information on this study, please visit our website at <a href="http://cure.camden.rutgers.edu/camden-neighborhood-change-study/
 ">CURE Camden Neighborhood Change Study</a></span>
+
+
 </div>
 
 <script>
@@ -142,18 +198,22 @@ function myFunction() {
 
 
 <hr>
-<p1><font color="red"><b>Red</b></font> markers indicate neighborhood assets; <font color="green"><b>Green</b></font> markers - property survey findings; <font color="blue"><b>Blue</b></font> line segments - Street survey results</p1>
+<p1><font color=#800020><b>Burgundy</b></font> markers indicate neighborhood assets; <font color=#006400><b>Green</b></font> markers - property survey findings; <font color="blue"><b>Blue</b></font> line segments - Street survey results</p1>
 
     <!--<div id="map-canvas"></div>-->
 <!--<div id="legend"><p1>Legend</p1></div>-->
 <br>
-<input type="button" value="Camden City boundary" onclick="toggleLayers(0);"/>
-<input type="button" value="Street Survey" onclick="toggleLayers(3);"/>
-<input type="button" value="Property Survey" onclick="toggleLayers(2);"/>
-<input type="button" value="Neighborhood Assets" onclick="toggleLayers(1);"/>
+<input type="checkbox" id="layer0" value="Camden City boundary" onclick="toggleLayers(0)"/>Camden City boundary</>
+<input type="checkbox" id="layer1" value="Cramer Hill Neighborhood" onclick="toggleLayers(1)"/>Cramer Hill Neighborhood</>
+<input type="checkbox" id="layer4" value="Street Survey" onclick="toggleLayers(4)"/>Street Survey</>
+<input type="checkbox" id="layer3" value="Property Survey" onclick="toggleLayers(3)"/>Property Survey</>
+<input type="checkbox" id="layer2" value="Neighborhood Assets" onclick="toggleLayers(2)"/>Neighborhood Assets</>
 
 <hr>
-<div id="map_canvas" style="height:600px; width:1190px;"></div>
+<div id="map_canvas" style="height:100%; width:70%; float:left"></div>
+<div id="vl" style="margin-top:0; margin-bottom:0; background-color:white; height:100%; width:2%"></div>
+<div id="capture" style="height:100%; width:28%; background-color:#F0F0F0" placeholder="Please enter your email"></div>
+
 
 <p><small> (c) The Center for Urban Research and Education (CURE), at Rutgers University - Camden <a href="http://cure.camden.rutgers.edu">Back to CURE's homepage</a></p>
 <br>
