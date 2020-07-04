@@ -100,7 +100,6 @@ p1 {text-align: center;}
        border-left: none;
        }
 
-
     </style>
 </head>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyArYdT0xI5RD1p8wcwp6uZsF-RPXUCDF84&sensor=false"></script>
@@ -112,11 +111,11 @@ var layers=[];
 
 layers[0] = new google.maps.KmlLayer('https://cure-cncs.camden.rutgers.edu/camden_city_outline.kml',{preserveViewport: false, suppressInfoWindows: true});
 
-layers[1] = new google.maps.KmlLayer('https://raw.githubusercontent.com/strase/straso/master/cramerhill3.kml?dl=1',{preserveViewport: false, suppressInfoWindows: true});
+layers[1] = new google.maps.KmlLayer('https://raw.githubusercontent.com/strase/straso/master/cramerhill3.kml',{preserveViewport: false, suppressInfoWindows: true});
 
 layers[2] = new google.maps.KmlLayer('https://cure-cncs.camden.rutgers.edu/neighborhood-assets-6009.kml',{preserveViewport: false, suppressInfoWindows: true});
 
-layers[3] = new google.maps.KmlLayer('https://raw.githubusercontent.com/strase/straso/master/cure-housing-baseline-study-surv-results4.kml?dl=1',{preserveViewport: false, suppressInfoWindows: true});
+layers[3] = new google.maps.KmlLayer('https://raw.githubusercontent.com/strase/straso/master/cure-housing-baseline-study-surv-results4.kml',{preserveViewport: false, suppressInfoWindows: true});
 
 layers[4] = new google.maps.KmlLayer('https://cure-cncs.camden.rutgers.edu/street-survey-merge.kml',{preserveViewport: false, suppressInfoWindows: true});
 
@@ -150,11 +149,6 @@ function toggleLayers(i){
   }
   else {
      layers[i].setMap(null);
-	 layers[i].addListener('click', function(event) {
-     var content = event.featureData.infoWindowHtml;
-     var testimonial = document.getElementById('capture');
-     testimonial.innerHTML = content;
-})   ;
   }
 }
   document.getElementById('status').innerHTML += "toggleLayers("+i+") [setMap("+layers[i].getMap()+"] returns status: "+layers[i].getStatus()+"<br>";
