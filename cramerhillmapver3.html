@@ -80,13 +80,10 @@ p1 {text-align: center;}
     </style>
 
 
-
 <link href="/maps/documentation/javascript/examples/default.css" rel="stylesheet">
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyArYdT0xI5RD1p8wcwp6uZsF-RPXUCDF84&sensor=false"></script>
     <script>
 var map;
-
-
 
 
 function initialize() {
@@ -103,7 +100,7 @@ var map = new google.maps.Map(document.getElementById('map-canvas'),
 
 
 var surveyLayer = new google.maps.KmlLayer({
-    url: 'https://raw.githubusercontent.com/strase/straso/master/cramerhilldata20.kml?dl=1',
+    url: 'https://raw.githubusercontent.com/strase/straso/master/cramerhilldata20.kml',
 	preserveViewport: true,
 	suppressInfoWindows: true
   });
@@ -131,7 +128,6 @@ var legend = document.createElement('div');
       }
 
 
-
 google.maps.event.addDomListener(window, 'load', initialize);
 
     </script>
@@ -146,7 +142,6 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <h2 style="margin-top:0; margin-bottom:0;">Center for Urban Research and Education (CURE) at Rutgers University - Camden</h2>
 
 </div>
-
 
 
 <hr>
@@ -166,7 +161,4 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <br>
   </body>
 </html>
-
-
-
 
